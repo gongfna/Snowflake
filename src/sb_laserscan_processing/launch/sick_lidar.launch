@@ -1,5 +1,8 @@
 <launch>
     <node name="sicklms" pkg="sicktoolbox_wrapper" type="sicklms" output="screen">
-        <param name="port" value="/dev/ttyUSB1" type="string"/>
+        <param name="port" value="/dev/ttyUSB0" type="string"/>
     </node>
+
+    <!-- Define a transform from the Lidar to the base of the robot -->
+    <node pkg="tf" type="static_tranform_publisher" name="lidar_static_transform" args="0.45 0 0 0 0 0 0 base_link laser 100" />
 </launch>
