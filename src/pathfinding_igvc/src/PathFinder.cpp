@@ -16,6 +16,18 @@ nav_msgs::Path PathFinder::calculatePath(geometry_msgs::Point start,
                                          nav_msgs::OccupancyGrid grid,
                                             int blocked_cell_threshold,
                                             bool use_dijkstra) {
+    // If we have an empty map, we can just go straight towards the goal
+    if (grid.info.height == 0 || grid.info.width == 0) {
+        ROS_INFO("No map, going right to goal");
+        geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
+                goal, 0
+        );
+        nav_msgs::Path path;
+        path.poses.push_back(goal_pose);
+
+        return path;
+    }
+
     AStar::GridPoint goal_on_grid;
     AStar::GridPoint start_on_grid;
     processGridAndGetStartAndGoalOnGrid(
@@ -28,7 +40,7 @@ nav_msgs::Path PathFinder::calculatePath(geometry_msgs::Point start,
     }
 
     std::stack<AStar::GridPoint> points =
-    AStar::run(grid, start_on_grid, goal_on_grid, blocked_cell_threshold, use_dijkstra);
+            AStar::run(grid, start_on_grid, goal_on_grid, blocked_cell_threshold, use_dijkstra);
 
     // re-add the original start to the beginning of the path
     if (is_start_occupied) {
