@@ -114,16 +114,17 @@ void PathFinderNode::publishPath() {
         geometry_msgs::PointStamped stamped_point;
         stamped_point.point = this->_goal;
         stamped_point.header.frame_id = this->_global_frame_name;
+        stamped_point.header.stamp = ros::Time(0);
         geometry_msgs::PointStamped transformed_point;
         _listener->transformPoint(this->_base_frame_name, stamped_point, transformed_point);
 
         geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
                 transformed_point.point, 0
         );
-        nav_msgs::Path path;
-        path.poses.push_back(goal_pose);
+        nav_msgs::Path path_short;
+        path_short.poses.push_back(goal_pose);
 
-        this->publisher.publish(path);
+        this->publisher.publish(path_short);
     }
 
     nav_msgs::Path path =
