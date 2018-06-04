@@ -107,7 +107,7 @@ geometry_msgs::Twist PathToTwistNode::pathToTwist(nav_msgs::Path path_msg,
     double x_sum = weightedSum(x_vectors, path_dropoff_factor); //-1 because number of vectors is one less than number of poses
     double y_sum = weightedSum(y_vectors, path_dropoff_factor);
 
-    double desired_angle = atan2(y_sum, x_sum) + M_PI;
+    double desired_angle = atan2(y_sum, x_sum);
     ROS_INFO_STREAM("Desired Angle: " << desired_angle);
     ROS_INFO_STREAM("Current Angle: " << orientation);
 
