@@ -24,6 +24,7 @@
 
         <rosparam param="base_frame">base_link</rosparam>
         <rosparam param="global_frame">map</rosparam>
+        <remap from="gps_decision/twist" to="/cmd_vel"/>
     </node>
 
 </launch>
