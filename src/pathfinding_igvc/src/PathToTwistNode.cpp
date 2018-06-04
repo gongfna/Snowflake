@@ -152,8 +152,10 @@ double y_pos) {
     double mag; //absolute magnitude in pending vector
 
     for (int i = 0; i < poses.size(); i++) {
-        x = poses[i].pose.position.x - x_pos;
-        y = poses[i].pose.position.y - y_pos;
+//        x = poses[i].pose.position.x - x_pos;
+//        y = poses[i].pose.position.y - y_pos;
+        x = x_pos - poses[i].pose.position.x;
+        y = y_pos - poses[i].pose.position.y;
 
         // TODO: delete me
         ROS_INFO_STREAM("dx: " << x);
