@@ -124,6 +124,11 @@ void PathFinderNode::publishPath() {
 
         geometry_msgs::Point goal_point = PathFinderUtils::vectorToPoint(goal_local_vector);
 
+        double x = goal_point.x;
+        double y = goal_point.y;
+        goal_point.y = x;
+        goal_point.x = y;
+
         geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
                 goal_point, 0
         );
