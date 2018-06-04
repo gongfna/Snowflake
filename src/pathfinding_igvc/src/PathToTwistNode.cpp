@@ -154,6 +154,11 @@ double y_pos) {
     for (int i = 0; i < poses.size(); i++) {
         x = poses[i].pose.position.x - x_pos;
         y = poses[i].pose.position.y - y_pos;
+
+        // TODO: delete me
+        ROS_INFO_STREAM("dx: " << x);
+        ROS_INFO_STREAM("dy: " << y);
+
         mag = sqrt(pow(x, 2) + pow(y, 2));
         //Calculate unit vector
         x /= mag;
