@@ -1,0 +1,4 @@
+<launch>
+    <!-- Define a transform from the Lidar to the base of the robot -->
+    <node pkg="tf" type="static_transform_publisher" name="laser_to_base_link_tf" args="0.45 0 0 0 0 0 base_link laser 1000" />
+</launch>
