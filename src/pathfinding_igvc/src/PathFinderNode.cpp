@@ -10,6 +10,7 @@
  */
 
 #include <PathFinderNode.h>
+#include "PathFinderUtils.h"
 
 PathFinderNode::PathFinderNode(int argc, char** argv, std::string node_name) {
     ros::init(argc, argv, node_name);
@@ -111,20 +112,28 @@ void PathFinderNode::publishPath() {
         ROS_INFO("No map, going right to goal");
 
         // Transform point to robot frame
-        geometry_msgs::PointStamped stamped_point;
-        stamped_point.point = this->_goal;
-        stamped_point.header.frame_id = this->_global_frame_name;
-        stamped_point.header.stamp = ros::Time(0);
-        geometry_msgs::PointStamped transformed_point;
-        _listener->transformPoint(this->_base_frame_name, stamped_point, transformed_point);
+//        geometry_msgs::PointStamped stamped_point;
+//        stamped_point.point = this->_goal;
+//        stamped_point.header.frame_id = this->_global_frame_name;
+//        stamped_point.header.stamp = ros::Time(0);
+//        geometry_msgs::PointStamped transformed_point;
+//        _listener->transformPoint(this->_base_frame_name, stamped_point, transformed_point);
+
+        tf::Vector3 goal_map_vector = PathFinderUtils::pointToVector(this->_goal);
+        tf::Vector3 goal_local_vector = transform * goal_map_vector;
+
+        geometry_msgs::Point goal_point = PathFinderUtils::vectorToPoint(goal_local_vector);
 
         geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
-                transformed_point.point, 0
+                goal_point, 0
         );
         nav_msgs::Path path_short;
         path_short.poses.push_back(goal_pose);
 
         this->publisher.publish(path_short);
+
+//        ROS_INFO_STREAM("IN: " << stamped_point);
+//        ROS_INFO_STREAM("OUT: " << transformed_point);
 
         return;
     }
