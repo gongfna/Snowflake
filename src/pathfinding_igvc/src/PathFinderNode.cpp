@@ -125,6 +125,8 @@ void PathFinderNode::publishPath() {
         path_short.poses.push_back(goal_pose);
 
         this->publisher.publish(path_short);
+
+        return;
     }
 
     nav_msgs::Path path =
