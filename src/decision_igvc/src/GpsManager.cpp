@@ -158,8 +158,8 @@ void GpsManager::populateWaypointStack(std::vector<Waypoint> waypoint_list) {
         geometry_msgs::PointStamped point_stamped;
         point_stamped.header.frame_id = global_frame;
         point_stamped.header.stamp    = ros::Time();
-        point_stamped.point.x         = easting;
-        point_stamped.point.y         = northing;
+        point_stamped.point.x         = northing;
+        point_stamped.point.y         = easting;
 
         waypoint_stack.push(point_stamped);
     }
