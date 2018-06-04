@@ -106,6 +106,26 @@ void PathFinderNode::publishPath() {
     start.x = transform.getOrigin().x();
     start.y = transform.getOrigin().y();
 
+    // If we have an empty map, we can just go straight towards the goal
+    if (this->_grid.info.height == 0 || this->_grid.info.width == 0) {
+        ROS_INFO("No map, going right to goal");
+
+        // Transform point to robot frame
+        geometry_msgs::PointStamped stamped_point;
+        stamped_point.point = this->_goal;
+        stamped_point.header.frame_id = this->_global_frame_name;
+        geometry_msgs::PointStamped transformed_point;
+        _listener->transformPoint(this->_base_frame_name, stamped_point, transformed_point);
+
+        geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
+                transformed_point.point, 0
+        );
+        nav_msgs::Path path;
+        path.poses.push_back(goal_pose);
+
+        this->publisher.publish(path);
+    }
+
     nav_msgs::Path path =
     PathFinder::calculatePath(start, this->_goal, this->_grid, this->_blocked_cell_threshold, this->_use_dijkstra);
 
