@@ -118,19 +118,19 @@ void PathFinderNode::publishPath() {
 //        stamped_point.header.stamp = ros::Time(0);
 //        geometry_msgs::PointStamped transformed_point;
 //        _listener->transformPoint(this->_base_frame_name, stamped_point, transformed_point);
-
-        tf::Vector3 goal_map_vector = PathFinderUtils::pointToVector(this->_goal);
-        tf::Vector3 goal_local_vector = transform * goal_map_vector;
-
-        geometry_msgs::Point goal_point = PathFinderUtils::vectorToPoint(goal_local_vector);
-
-        double x = goal_point.x;
-        double y = goal_point.y;
-        goal_point.y = x;
-        goal_point.x = y;
+//        tf::Vector3 goal_map_vector = PathFinderUtils::pointToVector(this->_goal);
+//        tf::Vector3 goal_local_vector = transform * goal_map_vector;
+//
+//        geometry_msgs::Point goal_point = PathFinderUtils::vectorToPoint(goal_local_vector);
+//
+//        geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
+//                goal_point, 0
+//        );
+//        nav_msgs::Path path_short;
+//        path_short.poses.push_back(goal_pose);
 
         geometry_msgs::PoseStamped goal_pose = PathFinderUtils::constructPoseStamped(
-                goal_point, 0
+                this->_goal, 0
         );
         nav_msgs::Path path_short;
         path_short.poses.push_back(goal_pose);
