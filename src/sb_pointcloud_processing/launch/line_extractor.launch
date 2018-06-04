@@ -5,7 +5,7 @@
         <!-- regularization constant for line of best fit -->
         <param name="lambda" value="0" type="double" />
         <!-- density parameters for DBSCAN -->
-        <param name="min_neighbours" value="15" type="int" />
+        <param name="min_neighbours" value="12" type="int" />
         <param name="radius" value="0.1" type="double" />
 
         <!-- rviz parameters -->

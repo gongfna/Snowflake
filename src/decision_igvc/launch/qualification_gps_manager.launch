@@ -5,9 +5,8 @@
         <rosparam param="at_goal_tolerance">0.5</rosparam>
         <rosparam param="waypoints">
         [
-            42.6782191223, -83.1955080989,
-            42.6778987274, -83.1954820799
-        
+            42.6778987274, -83.1954820799,        
+            42.6782191223, -83.1955080989
         ]
         </rosparam>
         <rosparam param="base_frame">base_link</rosparam>
