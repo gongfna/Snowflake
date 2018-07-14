@@ -98,7 +98,7 @@ class CircleDetection {
     bool show_window;
 
     // Image window variable
-    int image_update_rate;
+    int image_update_delay;
 };
 
 #endif
