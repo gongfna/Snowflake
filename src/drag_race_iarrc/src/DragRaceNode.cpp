@@ -115,7 +115,9 @@ DragRaceNode::DragRaceNode(int argc, char** argv, std::string node_name)
 
 void DragRaceNode::greenLightCallBack(
 const std_msgs::Bool& green_light_detected) {
-    if (green_light_detected.data) { green_count_recognised++; }
+    if (green_light_detected.data) {
+        green_count_recognised++;
+    }
 }
 
 void DragRaceNode::scanCallBack(const sensor_msgs::LaserScan::ConstPtr& scan) {
@@ -161,11 +163,11 @@ void DragRaceNode::scanCallBack(const sensor_msgs::LaserScan::ConstPtr& scan) {
 
     // If no green light has been detected stop.
     if (green_count_recognised < minimum_green_recognised_count) {
+        ROS_INFO("STOPPED (Waiting for a GO signal)");
         twist.angular.z = 0;
         twist.linear.x  = 0;
-    }
-
-    if (end_of_course) {
+    } else if (end_of_course) {
+        ROS_INFO("STOPPED (End of Course)");
         twist.linear.x = twist.linear.y = twist.linear.z = 0;
         twist.angular.x = twist.angular.y = twist.angular.z = 0;
     }
