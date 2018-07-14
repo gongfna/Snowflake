@@ -53,6 +53,8 @@ CircleDetection::CircleDetection(int argc, char** argv, std::string node_name) {
     // Get some params
     SB_getParam(private_nh, "minimum_target_radius", min_target_radius, 50);
     SB_getParam(private_nh, "show_image_window", show_window, true);
+    SB_getParam(
+            private_nh, "image_update_rate", image_update_rate, 100);
 }
 
 void CircleDetection::filteredImageCallBack(
@@ -129,7 +131,7 @@ void CircleDetection::showFilteredObjectsWindow(const Mat& filtered_image,
 
     namedWindow("Filtered Objects", WINDOW_AUTOSIZE);
     imshow("Filtered Objects", color_image);
-    waitKey(0);
+    waitKey(image_update_rate);
 }
 
 void CircleDetection::checkIfImageExists(const cv::Mat& img,
