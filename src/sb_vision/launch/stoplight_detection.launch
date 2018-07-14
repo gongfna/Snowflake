@@ -4,7 +4,7 @@
     <node name="HSVFilter_green_light" pkg="sb_vision" type="hsv_filter" output="screen">
         
         <!-- Input --> 
-        <remap from="/robot/vision/raw_image" to="/robot/camera2/raw_image"/>
+        <remap from="/robot/vision/raw_image" to="/robot/camera1/image_raw"/>
 
         <!-- Output -->
         <remap from="/vision/hsv_filtered_image" to="/vision/green_filtered_image" />
